@@ -1,0 +1,11 @@
+flowchart LR
+    U([Usuário]) --> UI
+    subgraph UI [Interfaces]
+        T[app_terminal.py]
+        W[app_web.py<br/>Streamlit]
+    end
+    UI --> C[src/chatbot.py<br/>create_chat]
+    CFG[src/config.py<br/>.env, modelo, prompt] --> C
+    P[prompts/senai_redes.txt<br/>instrução de sistema] --> CFG
+    C -->|google-genai<br/>send_message_stream| G[(Gemini API)]
+    G -->|resposta em partes| UI
